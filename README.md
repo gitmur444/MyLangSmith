@@ -10,6 +10,11 @@ Install dependencies using `pip`:
 pip install langchain langsmith openai
 ```
 
+Alternatively, you can use the included `codex.yaml` to configure the
+environment automatically. The setup step installs the dependencies from
+`requirements.txt`, while credentials must be supplied through environment
+variables.
+
 Set the following environment variables with your credentials:
 
 - `OPENAI_API_KEY`
