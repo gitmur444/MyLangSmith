@@ -2,11 +2,11 @@ import asyncio
 import json
 import websockets
 
-from fipa_acl import MessageBus
+from Bus import Bus
 
 
-class WebSocketMessageBus(MessageBus):
-    """Simple WebSocket-based message bus for FIPA agents."""
+class WebBus(Bus):
+    """Simple WebSocket-based message bus for actors."""
 
     def __init__(self) -> None:
         super().__init__()
