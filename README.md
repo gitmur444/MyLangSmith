@@ -10,6 +10,10 @@ Install dependencies using `pip`:
 pip install langchain langsmith openai
 ```
 
+Alternatively, you can spin up a Codespace and the `.devcontainer` configuration
+will install the dependencies automatically. Credentials must still be provided
+through environment variables.
+
 Set the following environment variables with your credentials:
 
 - `OPENAI_API_KEY`
