@@ -1,10 +1,8 @@
 {
-    "name": "MyLangSmith",
+    "name": "MyLangChain",
     "image": "mcr.microsoft.com/devcontainers/python:0-3.10",
     "postCreateCommand": "pip install -r requirements.txt",
     "remoteEnv": {
-        "OPENAI_API_KEY": "${OPENAI_API_KEY}",
-        "LANGCHAIN_API_KEY": "${LANGCHAIN_API_KEY}",
-        "LANGCHAIN_ENDPOINT": "${LANGCHAIN_ENDPOINT}"
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
     }
 }
