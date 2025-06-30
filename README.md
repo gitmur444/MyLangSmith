@@ -29,3 +29,13 @@ Execute `main.py` to run a simple `LLMChain` that greets the user. The run is re
 python main.py
 ```
 
+## FIPA ACL Demo
+
+The repository also includes a minimal skeleton that demonstrates how multiple agents
+can communicate using the FIPA ACL protocol. Run `fipa_demo.py` to see two agents
+exchange `request` and `inform` messages via a simple in-memory message bus.
+
+```bash
+python fipa_demo.py
+```
+
