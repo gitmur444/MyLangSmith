@@ -36,3 +36,19 @@ exchange `request` and `inform` messages via a simple in-memory message bus.
 python fipa_demo.py
 ```
 
+## Commander/Executor WebSocket Demo
+
+Two additional agents showcase communication over websockets with LLM-powered
+reasoning. The Commander sends human language instructions, while the Executor
+converts them to shell commands using OpenAI, runs them, and summarizes the
+output back to the Commander.
+
+Run the demo with:
+
+```bash
+python commander_executor.py
+```
+
+Ensure the `OPENAI_API_KEY` environment variable is set for the agents to call
+the OpenAI API.
+
