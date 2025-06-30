@@ -1,29 +1,26 @@
-# MyLangSmith
+# MyLangChain Example
 
-This repository contains a minimal example that demonstrates how to log LangChain runs to LangSmith.
+This repository contains a minimal example that demonstrates how to run a simple LangChain chain.
 
 ## Requirements
 
 Install dependencies using `pip`:
 
 ```bash
-pip install langchain langsmith openai
+pip install langchain openai
 ```
 
 Alternatively, you can spin up a Codespace and the `.devcontainer` configuration
 will install the dependencies automatically. Credentials must still be provided
 through environment variables.
 
-Set the following environment variables with your credentials:
+Set the following environment variable with your credentials:
 
 - `OPENAI_API_KEY`
-- `LANGCHAIN_API_KEY`
-
-You may also set `LANGCHAIN_ENDPOINT` if you use a self-hosted LangSmith instance.
 
 ## Running the example
 
-Execute `main.py` to run a simple `LLMChain` that greets the user. The run is recorded in LangSmith and the resulting trace URL is printed at the end.
+Execute `main.py` to run a simple `LLMChain` that greets the user.
 
 ```bash
 python main.py
