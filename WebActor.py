@@ -1,11 +1,13 @@
 import asyncio
 import json
 import websockets
-from fipa_acl import FIPAMessage, FIPAAgent
+
+from Signal import Signal
+from Actor import Actor
 
 
-class WebSocketFIPAAgent(FIPAAgent):
-    """FIPA agent that communicates over a websocket."""
+class WebActor(Actor):
+    """Actor that communicates over a websocket."""
 
     def __init__(self, name: str, uri: str) -> None:
         super().__init__(name)
@@ -20,10 +22,10 @@ class WebSocketFIPAAgent(FIPAAgent):
     async def _listen(self) -> None:
         async for message in self.websocket:
             data = json.loads(message)
-            await self.on_message(FIPAMessage(**data))
+            await self.on_message(Signal(**data))
 
     async def send(self, receiver: str, performative: str, content: str) -> None:
-        msg = FIPAMessage(
+        msg = Signal(
             performative=performative,
             sender=self.name,
             receiver=receiver,
@@ -31,5 +33,5 @@ class WebSocketFIPAAgent(FIPAAgent):
         )
         await self.websocket.send(json.dumps(msg.__dict__))
 
-    async def on_message(self, message: FIPAMessage) -> None:
+    async def on_message(self, message: Signal) -> None:
         print(f"{self.name} received {message.performative} from {message.sender}: {message.content}")
