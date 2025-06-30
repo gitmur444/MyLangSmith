@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List
+from typing import Dict, List, Optional
 import uuid
 
 
@@ -34,13 +34,16 @@ class MessageBus:
 class FIPAAgent:
     """Base class for agents communicating via FIPA ACL."""
 
-    def __init__(self, name: str, bus: MessageBus) -> None:
+    def __init__(self, name: str, bus: Optional[MessageBus] = None) -> None:
         self.name = name
         self.bus = bus
         self.inbox: List[FIPAMessage] = []
-        self.bus.register(self)
+        if self.bus is not None:
+            self.bus.register(self)
 
     def send(self, receiver: str, performative: str, content: str) -> None:
+        if self.bus is None:
+            raise RuntimeError("Agent is not connected to a message bus")
         message = FIPAMessage(
             performative=performative,
             sender=self.name,
