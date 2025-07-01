@@ -1,8 +1,10 @@
 from __future__ import annotations
 from typing import Dict, TYPE_CHECKING
 
+from messages.fipa_message import FIPAMessage
+
 if TYPE_CHECKING:
-    from Actor import Actor
+    from agents.base.actor import Actor
 
 
 class Bus:

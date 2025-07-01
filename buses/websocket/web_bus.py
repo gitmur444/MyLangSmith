@@ -2,7 +2,7 @@ import asyncio
 import json
 import websockets
 
-from Bus import Bus
+from buses.base.bus import Bus
 
 
 class WebBus(Bus):

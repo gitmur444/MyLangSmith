@@ -1,17 +1,12 @@
-from __future__ import annotations
+from typing import List, Optional
 
-from typing import List, Optional, TYPE_CHECKING
+from messages.fipa_message import FIPAMessage
+from buses.base.fipa_message_bus import FipaMessageBus
 
-from FIPAMessage import FIPAMessage
-
-if TYPE_CHECKING:
-    from Bus import Bus
-
-
-class Actor:
+class FIPAAgent:
     """Base class for agents communicating via FIPA ACL."""
 
-    def __init__(self, name: str, bus: Optional['Bus'] = None) -> None:
+    def __init__(self, name: str, bus: Optional[FipaMessageBus] = None) -> None:
         self.name = name
         self.bus = bus
         self.inbox: List[FIPAMessage] = []
@@ -20,7 +15,7 @@ class Actor:
 
     def send(self, receiver: str, performative: str, content: str) -> None:
         if self.bus is None:
-            raise RuntimeError("Actor is not connected to a message bus")
+            raise RuntimeError("Agent is not connected to a message bus")
         message = FIPAMessage(
             performative=performative,
             sender=self.name,
@@ -35,4 +30,6 @@ class Actor:
 
     def on_message(self, message: FIPAMessage) -> None:
         """Handle an incoming message. Override in subclasses."""
-        print(f"{self.name} received {message.performative} from {message.sender}: {message.content}")
+        print(
+            f"{self.name} received {message.performative} from {message.sender}: {message.content}"
+        )
