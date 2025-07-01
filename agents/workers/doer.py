@@ -1,22 +1,28 @@
 import asyncio
-import openai
+from openai import AsyncOpenAI
 
 from agents.websocket.web_actor import WebActor
 from messages.fipa_message import FIPAMessage
 
+client = AsyncOpenAI()
+
+def clean_input(text: str) -> str:
+    # Remove surrogate pairs and invalid unicode
+    return text.encode("utf-8", "ignore").decode("utf-8", "ignore")
 
 class Doer(WebActor):
     async def on_message(self, message: FIPAMessage) -> None:
         await super().on_message(message)
         if message.performative == "request":
-            completion = await openai.ChatCompletion.acreate(
+            safe_content = clean_input(message.content)
+            response = await client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "Преобразуй инструкцию пользователя в команду shell."},
-                    {"role": "user", "content": message.content},
+                    {"role": "user", "content": safe_content},
                 ],
             )
-            cmd = completion.choices[0].message["content"].strip()
+            cmd = response.choices[0].message.content.strip()
             proc = await asyncio.create_subprocess_shell(
                 cmd,
                 stdout=asyncio.subprocess.PIPE,
@@ -24,12 +30,12 @@ class Doer(WebActor):
             )
             out, _ = await proc.communicate()
             output = out.decode().strip()
-            completion = await openai.ChatCompletion.acreate(
+            response = await client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "Опиши результат выполнения команды пользователю."},
                     {"role": "user", "content": f"Команда: {cmd}\nВывод: {output}"},
                 ],
             )
-            reply = completion.choices[0].message["content"].strip()
+            reply = response.choices[0].message.content.strip()
             await self.send(message.sender, "inform", reply)

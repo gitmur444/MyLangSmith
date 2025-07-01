@@ -29,6 +29,7 @@ class WebSocketMessageBus(FipaMessageBus):
                     await target.send(msg)
         finally:
             self.clients.pop(name, None)
+# handler принимает два аргумента: websocket, path
 
     async def start(self, host: str = "localhost", port: int = 8765) -> None:
         async with websockets.serve(self.handler, host, port):
