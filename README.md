@@ -20,10 +20,10 @@ Set the following environment variable with your credentials:
 
 ## Running the example
 
-Execute `main.py` to run a simple `LLMChain` that greets the user.
+Execute `scripts/main.py` to run a simple `LLMChain` that greets the user.
 
 ```bash
-python main.py
+python scripts/main.py
 ```
 
 ## FIPA ACL Demo
@@ -46,7 +46,7 @@ output back to the Commander.
 Run the demo with:
 
 ```bash
-python commander_executor.py
+python scripts/commander_executor.py
 ```
 
 Ensure the `OPENAI_API_KEY` environment variable is set for the agents to call

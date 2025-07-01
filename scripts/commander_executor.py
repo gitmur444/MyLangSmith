@@ -1,8 +1,8 @@
 import asyncio
 
-from WebBus import WebBus
-from Supervisor import Supervisor
-from Worker import Doer
+from buses.websocket.web_bus import WebBus
+from agents.workers.supervisor import Supervisor
+from agents.workers.doer import Doer
 
 
 async def main() -> None:

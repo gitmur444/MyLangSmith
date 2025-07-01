@@ -1,9 +1,8 @@
 import asyncio
 import openai
 
-from WebActor import WebActor
-from FIPAMessage import FIPAMessage
-from FIPAMessage import FIPAMessage
+from agents.websocket.web_actor import WebActor
+from messages.fipa_message import FIPAMessage
 
 class Supervisor(WebActor):
     async def run(self) -> None:

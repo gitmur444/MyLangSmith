@@ -2,7 +2,7 @@ import asyncio
 import json
 import websockets
 
-from FipaMessageBus import FipaMessageBus
+from buses.base.fipa_message_bus import FipaMessageBus
 
 class WebSocketMessageBus(FipaMessageBus):
     """Simple WebSocket-based message bus for FIPA agents."""

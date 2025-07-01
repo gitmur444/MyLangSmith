@@ -1,7 +1,9 @@
 import asyncio
 import json
 import websockets
-from MessageBus import FIPAMessage, FIPAAgent
+
+from agents.base.fipa_agent import FIPAAgent
+from messages.fipa_message import FIPAMessage
 
 
 class WebSocketFIPAAgent(FIPAAgent):

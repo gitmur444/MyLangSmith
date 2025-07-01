@@ -2,8 +2,8 @@ import asyncio
 import json
 import websockets
 
-from Actor import Actor
-from FIPAMessage import FIPAMessage
+from agents.base.actor import Actor
+from messages.fipa_message import FIPAMessage
 
 class WebActor(Actor):
     """Actor that communicates over a websocket."""
