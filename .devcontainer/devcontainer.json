@@ -1,7 +1,9 @@
 {
     "name": "MyLangChain",
-    "image": "mcr.microsoft.com/devcontainers/python:0-3.10",
-    "postCreateCommand": "pip install -r requirements.txt && pip install websockets",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
     "remoteEnv": {
         "OPENAI_API_KEY": "${OPENAI_API_KEY}"
     }
