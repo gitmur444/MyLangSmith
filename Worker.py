@@ -2,11 +2,11 @@ import asyncio
 import openai
 
 from WebActor import WebActor
-from Signal import Signal
+from FIPAMessage import FIPAMessage
 
 
 class Doer(WebActor):
-    async def on_message(self, message: Signal) -> None:
+    async def on_message(self, message: FIPAMessage) -> None:
         await super().on_message(message)
         if message.performative == "request":
             completion = await openai.ChatCompletion.acreate(

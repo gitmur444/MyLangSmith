@@ -1,6 +1,0 @@
-image: python:3.10
-setup:
-  - pip install -r requirements.txt
-run: python main.py
-env:
-  OPENAI_API_KEY: ${OPENAI_API_KEY}

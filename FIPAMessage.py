@@ -5,7 +5,7 @@ import uuid
 
 
 @dataclass
-class Signal:
+class FIPAMessage:
     """Minimal representation of a FIPA ACL message."""
 
     performative: str

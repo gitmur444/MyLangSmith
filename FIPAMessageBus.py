@@ -1,20 +1,22 @@
 from __future__ import annotations
-from typing import Dict, TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from Actor import Actor
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional
+import uuid
 
 
-class Bus:
-    """Simple in-memory message bus for actors."""
+class FipaMessageBus:
+    """Simple in-memory message bus for agents."""
 
     def __init__(self) -> None:
-        self.agents: Dict[str, Actor] = {}
+        self.agents: Dict[str, FIPAAgent] = {}
 
-    def register(self, agent: 'Actor') -> None:
+    def register(self, agent: 'FIPAAgent') -> None:
         self.agents[agent.name] = agent
 
     def send(self, message: FIPAMessage) -> None:
         receiver = self.agents.get(message.receiver)
         if receiver:
             receiver.receive(message)
+
+

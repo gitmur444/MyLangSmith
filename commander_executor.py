@@ -1,8 +1,8 @@
 import asyncio
 
 from WebBus import WebBus
-from Chief import Chief
-from Doer import Doer
+from Supervisor import Supervisor
+from Worker import Doer
 
 
 async def main() -> None:
@@ -12,7 +12,7 @@ async def main() -> None:
     executor = Doer("Doer", "ws://localhost:8765")
     await executor.connect()
 
-    commander = Chief("Chief", "ws://localhost:8765")
+    commander = Supervisor("Supervisor", "ws://localhost:8765")
     await commander.run()
 
     await commander.websocket.close()

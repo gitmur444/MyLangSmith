@@ -1,12 +1,11 @@
 import asyncio
 import json
 import websockets
+from MessageBus import FIPAMessage, FIPAAgent
 
-from Actor import Actor
-from FIPAMessage import FIPAMessage
 
-class WebActor(Actor):
-    """Actor that communicates over a websocket."""
+class WebSocketFIPAAgent(FIPAAgent):
+    """FIPA agent that communicates over a websocket."""
 
     def __init__(self, name: str, uri: str) -> None:
         super().__init__(name)
