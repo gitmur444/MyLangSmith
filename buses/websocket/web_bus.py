@@ -12,28 +12,27 @@ class WebBus(Bus):
         super().__init__()
         self.clients = {}
 
-    async def handler(self, websocket, path):
-        print("DEBUG: handler called with websocket and path:", websocket, path, flush=True)
-        # Expect a registration message first
+    async def handler(self, websocket):
         register_msg = await websocket.recv()
         register = json.loads(register_msg)
         if register.get("type") != "register":
             await websocket.close()
             return
-        name = register["name"]
-        self.clients[name] = websocket
+        self.clients.add(websocket)
         try:
-            async for msg in websocket:
-                data = json.loads(msg)
-                receiver = data.get("receiver")
-                target = self.clients.get(receiver)
-                if target:
-                    await target.send(msg)
+            async for message in websocket:
+                data = json.loads(message)
+                sender = data.get("sender", "unknown")
+                receiver = data.get("receiver", "unknown")
+                content = data.get("content", "")
+                print(f"{sender} --> {receiver}: {content}", flush=True)
+                # Пересылаем сообщение всем, кроме отправителя
+                for client in self.clients:
+                    if client != websocket:
+                        await client.send(message)
         finally:
-            self.clients.pop(name, None)
-# handler принимает два аргумента: websocket, path
+            self.clients.remove(websocket)
 
     async def start(self, host: str = "localhost", port: int = 8765) -> None:
-        print(f"DEBUG: websockets.serve(self.handler={self.handler}, type={type(self.handler)})", flush=True)
         async with websockets.serve(self.handler, host, port):
             await asyncio.Future()  # run forever

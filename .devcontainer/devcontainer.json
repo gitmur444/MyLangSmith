@@ -1,5 +1,6 @@
 {
     "name": "MyLangChain",
+    "envFile": ".devcontainer/.env",
     "build": {
         "dockerfile": "Dockerfile",
         "context": ".."
