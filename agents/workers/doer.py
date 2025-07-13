@@ -1,7 +1,7 @@
 import asyncio
 from openai import AsyncOpenAI
 
-from agents.websocket.web_actor import WebActor
+from agents.base.async_fipa_agent import AsyncFIPAAgent
 from messages.fipa_message import FIPAMessage
 
 client = AsyncOpenAI()
@@ -10,9 +10,12 @@ def clean_input(text: str) -> str:
     # Remove surrogate pairs and invalid unicode
     return text.encode("utf-8", "ignore").decode("utf-8", "ignore")
 
-class Doer(WebActor):
+class Doer(AsyncFIPAAgent):
     async def on_message(self, message: FIPAMessage) -> None:
-        await super().on_message(message)
+        print(
+            f"{self.name} received {message.performative} from {message.sender}: {message.content}",
+            flush=True,
+        )
         if message.performative == "request":
             safe_content = clean_input(message.content)
             response = await client.chat.completions.create(
@@ -39,3 +42,4 @@ class Doer(WebActor):
             )
             reply = response.choices[0].message.content.strip()
             await self.send(message.sender, "inform", reply)
+

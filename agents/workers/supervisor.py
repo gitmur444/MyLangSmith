@@ -3,7 +3,7 @@ import json
 import re
 
 from openai import AsyncOpenAI
-from agents.websocket.web_actor import WebActor
+from agents.base.async_fipa_agent import AsyncFIPAAgent
 from messages.fipa_message import FIPAMessage
 
 client = AsyncOpenAI()
@@ -12,9 +12,8 @@ def clean_input(text: str) -> str:
     # Remove surrogate pairs and invalid unicode
     return text.encode("utf-8", "ignore").decode("utf-8", "ignore")
 
-class Supervisor(WebActor):
+class Supervisor(AsyncFIPAAgent):
     async def run(self) -> None:
-        await self.connect()
         while True:
             user_cmd = await asyncio.to_thread(input, "\033[1mYou --> Supervisor:\033[0m ")
             user_cmd = clean_input(user_cmd)
@@ -57,7 +56,10 @@ class Supervisor(WebActor):
         await asyncio.sleep(1)
 
     async def on_message(self, message: FIPAMessage) -> None:
-        await super().on_message(message)
+        print(
+            f"{self.name} received {message.performative} from {message.sender}: {message.content}",
+            flush=True,
+        )
         if message.performative == "inform":
             safe_content = clean_input(message.content)
             messages = [
