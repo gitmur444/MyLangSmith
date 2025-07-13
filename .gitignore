@@ -1,2 +1,9 @@
 .devcontainer/.env
 **/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.idea/
+.vscode/

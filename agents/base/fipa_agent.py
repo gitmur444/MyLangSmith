@@ -13,7 +13,7 @@ class FIPAAgent:
         if self.bus is not None:
             self.bus.register(self)
 
-    def send(self, receiver: str, performative: str, content: str) -> None:
+    async def send(self, receiver: str, performative: str, content: str) -> None:
         if self.bus is None:
             raise RuntimeError("Agent is not connected to a message bus")
         message = FIPAMessage(
