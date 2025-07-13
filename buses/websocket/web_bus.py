@@ -10,7 +10,7 @@ class WebBus(Bus):
 
     def __init__(self) -> None:
         super().__init__()
-        self.clients = {}
+        self.clients = set()
 
     async def handler(self, websocket):
         register_msg = await websocket.recv()
