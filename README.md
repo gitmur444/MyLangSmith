@@ -43,10 +43,19 @@ reasoning. The Commander sends human language instructions, while the Executor
 converts them to shell commands using OpenAI, runs them, and summarizes the
 output back to the Commander.
 
-Run the demo with:
+Run the original WebSocket-based demo with:
 
 ```bash
 python scripts/commander_executor.py
+```
+
+### Direct Bus Version
+
+Agents can also communicate directly via an in-memory bus without websockets.
+Run this version with:
+
+```bash
+python scripts/direct_commander_executor.py
 ```
 
 Ensure the `OPENAI_API_KEY` environment variable is set for the agents to call
